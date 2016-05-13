@@ -40,6 +40,24 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		
+		<!-- Swagger -->
+		<dependency>
+            <groupId>com.mangofactory</groupId>
+            <artifactId>swagger-springmvc</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ajar</groupId>
+            <artifactId>swagger-spring-mvc-ui</artifactId>
+            <version>0.4</version>
+        </dependency>
+        
+        <!-- Hateoas -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
+        
 	</dependencies>
 	<profiles>
 		<profile>

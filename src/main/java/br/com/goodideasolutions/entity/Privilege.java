@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
@@ -17,7 +19,10 @@ public class Privilege {
 
 	private String name;
 
-	@ManyToMany(mappedBy = "privileges")
+	@ManyToMany
+    @JoinTable( name = "privileges_roles",
+        joinColumns = @JoinColumn(name = "id_privilege", referencedColumnName = "id"), 
+        inverseJoinColumns = @JoinColumn(name = "id_role", referencedColumnName = "id"))
 	private List<Role> roles;
 	
 	public Privilege() {
