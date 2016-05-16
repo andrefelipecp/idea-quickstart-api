@@ -4,11 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
@@ -23,7 +25,9 @@ import br.com.goodideasolutions.repository.UserRepository;
 @SpringBootApplication
 @EnableJpaRepositories("br.com.goodideasolutions.repository")
 @EntityScan("br.com.goodideasolutions.entity")
-@ComponentScan(basePackages = {"br.com.goodideasolutions.config"})
+@ComponentScan(basePackages = {"br.com.goodideasolutions"})
+@Configuration
+@EnableAutoConfiguration
 public class Application {
     
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
@@ -52,7 +56,7 @@ public class Application {
     public SwaggerSpringMvcPlugin groupOnePlugin() {
        return new SwaggerSpringMvcPlugin(swaggerConfig)
            .apiInfo(apiInfo())
-           .includePatterns("/idea-quickstart-api/api/users*?")
+           .includePatterns("user*?")
            .swaggerGroup("admin");
     }
     

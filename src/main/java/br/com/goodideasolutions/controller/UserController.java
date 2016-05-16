@@ -24,7 +24,7 @@ import br.com.goodideasolutions.service.UserService;
 
 @Api(value = "users")
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users/")
 public class UserController {
 	
 	@Autowired
@@ -32,15 +32,18 @@ public class UserController {
 	
 	@ApiOperation(value = "List All Users")
 	@ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpEntity<List<User>> list() {
 		List<User> users = userService.findAll();
+		for (User user : users) {
+			user.add(linkTo(methodOn(UserController.class).one(user.getIdUser())).withSelfRel());
+		}
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 
 	@ApiOperation(value = "Find one user")
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/one/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public HttpEntity<User> one(@PathVariable(value = "userId") Long userId) {
 		User user = userService.one(userId);
 		user.add(linkTo(methodOn(UserController.class).one(userId)).withSelfRel());
