@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 
 import br.com.goodideasolutions.entity.User;
 import br.com.goodideasolutions.service.UserService;
@@ -44,7 +45,7 @@ public class UserController {
 	@ApiOperation(value = "Find one user")
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value = "/one/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public HttpEntity<User> one(@PathVariable(value = "userId") Long userId) {
+	public HttpEntity<User> one(@ApiParam(name="userId", value="user id on database", required=true) @PathVariable(value = "userId") Long userId) {
 		User user = userService.one(userId);
 		user.add(linkTo(methodOn(UserController.class).one(userId)).withSelfRel());
 		return new ResponseEntity<User>(user, HttpStatus.OK);
